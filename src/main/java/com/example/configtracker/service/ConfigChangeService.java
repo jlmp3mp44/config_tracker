@@ -13,8 +13,5 @@ ConfigChangeService {
   public ConfigChange logChange(ConfigChange change);
   public List<ConfigChangeListDTO> listChanges(Optional<String> type, Optional<LocalDateTime> from, Optional<LocalDateTime> to);
   public ConfigChange getChangeById(Long id);
-
-  ConfigChange updateByRuleId(Long id, ConfigChangeUpdateRequest updatedChange);
-
   ConfigChange delete(Long id);
 }

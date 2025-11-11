@@ -32,12 +32,6 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
   @Override
   public ConfigChange logChange(ConfigChange change) {
 
-    boolean exists = configChangeRepo.findAll().stream()
-        .anyMatch(c -> c.getRuleTypeId().equals(change.getRuleTypeId()));
-    if (exists) {
-      throw new APIException("A change for this RuleType already exists. You can only update the existing one.");
-    }
-
     RuleType ruleType = ruleTypeService.getRuleTypeById(change.getRuleTypeId());
 
     // Перевіряємо значення
@@ -88,42 +82,6 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
     return configChangeRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Config change", "configChangeId", id));
   }
-
-  @Override
-  public ConfigChange updateByRuleId(Long ruleId, ConfigChangeUpdateRequest updatedChange) {
-    // Беремо останню зміну для цього правила
-    ConfigChange lastChange = configChangeRepo.findAll().stream()
-        .filter(c -> c.getRuleTypeId().equals(ruleId))
-        .max(Comparator.comparing(ConfigChange::getChangedAt))
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "ConfigChange", "configChange ruleId", ruleId
-        ));
-
-    // Створюємо новий запис
-    ConfigChange newChange = new ConfigChange();
-    newChange.setId(configChangeRepo.generateId());
-    newChange.setRuleTypeId(ruleId);
-    newChange.setCurrentValue(updatedChange.getCurrentValue());
-    newChange.setChangedBy(updatedChange.getChangedBy());
-    newChange.setChangedAt(LocalDateTime.now());
-    newChange.setCritical(updatedChange.isCritical());
-
-    // Валідація по valueType
-    RuleType ruleType = ruleTypeService.getRuleTypeById(ruleId);
-    validateValueType(newChange, ruleType);
-
-    // Зберігаємо
-    configChangeRepo.save(newChange);
-
-    // Сповіщення, якщо критично
-    if (newChange.isCritical()) {
-      notificationService.notify("Critical configuration change detected: " + newChange);
-    }
-
-    return newChange;
-  }
-
-
 
   @Override
   public ConfigChange delete(Long id) {

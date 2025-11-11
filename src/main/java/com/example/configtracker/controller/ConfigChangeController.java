@@ -46,15 +46,6 @@ public class ConfigChangeController {
     return ResponseEntity.ok(service.getChangeById(id));
   }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<ConfigChange> update(
-      @PathVariable Long id,
-      @Valid @RequestBody ConfigChangeUpdateRequest updatedChange
-  ) {
-    ConfigChange configChangeUpdated = service.updateByRuleId(id, updatedChange);
-    return ResponseEntity.ok(configChangeUpdated);
-  }
-
   // ✅ 4. DELETE (by ID)
   @DeleteMapping("/{id}")
   public ResponseEntity<ConfigChange> delete(@PathVariable Long id) {

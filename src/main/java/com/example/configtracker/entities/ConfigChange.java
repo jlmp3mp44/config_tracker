@@ -21,6 +21,4 @@ public class ConfigChange {
   private LocalDateTime changedAt;
   @NotNull(message = "is critical field should not be empty")
   private boolean isCritical;
-
-  private ConfigChange prevChange; // on id
 }

@@ -34,6 +34,17 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
 
     RuleType ruleType = ruleTypeService.getRuleTypeById(change.getRuleTypeId());
 
+    boolean duplicateExists = configChangeRepo.findAll().stream()
+        .anyMatch(existing ->
+            existing.getRuleTypeId().equals(change.getRuleTypeId()) &&
+                existing.getCurrentValue().equals(change.getCurrentValue()) &&
+                existing.isCritical() == change.isCritical()
+        );
+
+    if (duplicateExists) {
+      throw new APIException("An identical configuration change already exists. Duplicate not allowed.");
+    }
+
     // Перевіряємо значення
     validateValueType(change, ruleType);
 

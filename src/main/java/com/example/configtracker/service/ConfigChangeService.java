@@ -1,7 +1,6 @@
 package com.example.configtracker.service;
 
 import com.example.configtracker.dto.ConfigChangeListDTO;
-import com.example.configtracker.dto.ConfigChangeUpdateRequest;
 import com.example.configtracker.entities.ConfigChange;
 import java.time.LocalDateTime;
 import java.util.List;

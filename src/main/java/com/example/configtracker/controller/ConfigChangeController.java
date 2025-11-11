@@ -1,11 +1,9 @@
 package com.example.configtracker.controller;
 
 import com.example.configtracker.dto.ConfigChangeListDTO;
-import com.example.configtracker.dto.ConfigChangeUpdateRequest;
 import com.example.configtracker.entities.ConfigChange;
 import com.example.configtracker.service.ConfigChangeService;
 import jakarta.validation.Valid;
-import java.io.ObjectInputFilter.Config;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

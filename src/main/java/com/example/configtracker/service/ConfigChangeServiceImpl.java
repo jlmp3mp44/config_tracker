@@ -2,10 +2,8 @@ package com.example.configtracker.service;
 
 import com.example.configtracker.dto.ConfigChangeListDTO;
 import com.example.configtracker.dto.ConfigChangeResponceDTO;
-import com.example.configtracker.dto.ConfigChangeUpdateRequest;
 import com.example.configtracker.entities.ConfigChange;
 import com.example.configtracker.entities.RuleType;
-import com.example.configtracker.entities.ValueType;
 import com.example.configtracker.exception.APIException;
 import com.example.configtracker.exception.ResourceNotFoundException;
 import com.example.configtracker.repo.ConfigChangeRepo;

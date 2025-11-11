@@ -110,7 +110,7 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
           Integer.parseInt(value);
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException(
-              "Value for rule " + ruleType.getName() + " must be an integer");
+              "Value for rule " + ruleType.getName() + " must be an integer and not contains more than 9 digits");
         }
         break;
       case "BOOLEAN":
@@ -120,8 +120,16 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
         }
         break;
       case "STRING":
-        // можна додати додаткові обмеження, наприклад максимальна довжина
+        if (value.length() > 200) {
+          throw new IllegalArgumentException(
+              "Value for rule " + ruleType.getName() + " must not exceed 200 characters");
+        }
+        if (!value.matches(".*[A-Za-z].*")) {
+          throw new IllegalArgumentException(
+              "Value for rule " + ruleType.getName() + " must contain at least one English letter");
+        }
         break;
+
 
       default:
         throw new IllegalArgumentException(

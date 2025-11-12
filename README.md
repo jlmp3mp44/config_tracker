@@ -38,8 +38,6 @@ logs/notification.log
 
 * Java 21
 * Spring Boot 3.5.7
-* Spring Validation for input validation
-* Actuator for metrics and health check
 
 ---
 
@@ -173,10 +171,71 @@ logs/notification.log
 ## Postman Collection
 
 A ready-to-use **Postman collection** is available in the project at:
+postman directory
+
+---
+## How to Run Config Tracker
+
+This guide explains how to run the Config Tracker application, either via IntelliJ IDEA or using the terminal.
+
+
+### Using IntelliJ IDEA
+
+1. Clone the repository:
+```
+
+git clone [https://github.com/your-username/config-tracker.git](https://github.com/your-username/config-tracker.git)
+cd config-tracker
 
 ```
-postman/ConfigTracker.postman_collection.json
+2. Install the **Lombok plugin** in IntelliJ IDEA:  
+   `File → Settings → Plugins → Marketplace → search for Lombok → Install`
+3. Enable annotation processing:  
+   `File → Settings → Build, Execution, Deployment → Compiler → Annotation Processors → Enable annotation processing`
+4. Run the application:
 ```
 
-You can import it in Postman to easily test all endpoints, including filtering and creating configurations.
+mvn spring-boot:run
 
+```
+
+---
+
+## Using Terminal
+
+1. Ensure Maven is installed and java version 21:
+```
+
+mvn -v
+java -version
+
+```
+2. Clone the repository:
+```
+
+git clone [https://github.com/your-username/config-tracker.git](https://github.com/your-username/config-tracker.git)
+cd config-tracker
+
+```
+3. Build the project:
+```
+
+mvn clean package
+
+```
+4. Run the application:
+```
+
+java -jar target/configtracker-0.0.1-SNAPSHOT.jar
+
+```
+
+---
+
+## Notes
+
+* If using IntelliJ IDEA, enabling Lombok annotation processing is required to properly handle Lombok annotations.
+* Maven is required when running via terminal.
+* After starting the application, it will be available at `http://localhost:8080`.
+* The application includes Postman requests collection to test all endpoints conveniently.
+```

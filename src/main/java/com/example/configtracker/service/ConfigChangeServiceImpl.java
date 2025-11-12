@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
 
   @Autowired
   private RuleTypeService ruleTypeService;
+
+  private static final Logger log = LoggerFactory.getLogger(ConfigChangeServiceImpl.class);
 
   @Override
   public ConfigChange logChange(ConfigChange change) {
@@ -51,6 +55,7 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
     configChangeRepo.save(change);
 
     if (change.isCritical()) {
+      log.info("Critical configuration change detected: {}", change);
       notificationService.notify("Critical configuration change detected: " + change);
     }
 

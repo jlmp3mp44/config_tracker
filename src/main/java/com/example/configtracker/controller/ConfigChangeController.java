@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +27,11 @@ public class ConfigChangeController {
   @Autowired
   private ConfigChangeService service;
 
+  private final Logger log = LoggerFactory.getLogger(ConfigChangeController.class);
+
   @PostMapping
   public ResponseEntity<ConfigChange> createChange(@Valid @RequestBody ConfigChange change) {
+    log.info("Received request to create config change for ruleId={}", change.getRuleTypeId());
     return ResponseEntity.ok(service.logChange(change));
   }
 
@@ -35,16 +40,19 @@ public class ConfigChangeController {
       @RequestParam(required = false) String type,
       @RequestParam(required = false) LocalDateTime from,
       @RequestParam(required = false) LocalDateTime to) {
+    log.info("Received request to get all config changes");
     return ResponseEntity.ok(service.listChanges(Optional.ofNullable(type), Optional.ofNullable(from), Optional.ofNullable(to)));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ConfigChange> getChangeById(@PathVariable Long id) {
+    log.info("Received request to get config change for changeId={}",id);
     return ResponseEntity.ok(service.getChangeById(id));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<ConfigChange> delete(@PathVariable Long id) {
+    log.info("Received request to delete config change for changeId={}", id);
     ConfigChange configChangeDeleted = service.delete(id);
     return ResponseEntity.ok(configChangeDeleted);
   }

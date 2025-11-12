@@ -17,6 +17,8 @@ public class ConfigChange {
   private Long ruleTypeId;
   @NotBlank(message = "current value field should not be blank")
   private String currentValue;
+
+  // For simplicity, `changedBy` is a String here. In real apps, use a User entity with proper auth
   @NotNull (message = "changedBy field should not be blank")
   @Pattern(regexp = "^[A-Za-z ]+$", message = "Name must contain only English letters")
   private String changedBy;

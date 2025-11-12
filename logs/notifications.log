@@ -21,3 +21,4 @@
 2025-11-11T17:02:56.006862600 - Critical configuration change detected: ConfigChange(id=1, ruleTypeId=1, currentValue=20, changedBy=user, changedAt=2025-11-11T17:02:56.002874800, isCritical=true)
 2025-11-11T17:04:11.939637500 - Critical configuration change detected: ConfigChange(id=1, ruleTypeId=1, currentValue=20, changedBy=user, changedAt=2025-11-11T17:04:11.937639300, isCritical=true)
 2025-11-12T12:28:53.906660200 - Critical configuration change detected: ConfigChange(id=2, ruleTypeId=1, currentValue=46564675, changedBy=rfijore, changedAt=2025-11-12T12:28:53.898327900, isCritical=true)
+2025-11-12T12:36:39.402792800 - Critical configuration change detected: ConfigChange(id=1, ruleTypeId=1, currentValue=20, changedBy=user, changedAt=2025-11-12T12:36:39.399616700, isCritical=true)

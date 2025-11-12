@@ -33,7 +33,7 @@ class ConfigChangeControllerIntegrationTest {
 
   @BeforeEach
   void setupRuleType() {
-    ruleTypeRepo.findAll().clear();
+    ruleTypeRepo.clear();
     RuleType ruleType = new RuleType();
     ruleType.setName("MaxConnections");
     ruleType.setValueType("INTEGER");

@@ -43,5 +43,9 @@ public class RuleTypeRepo {
   public Optional<RuleType> findByName(String name) {
     return storage.values().stream().filter(r -> r.getName().equalsIgnoreCase(name)).findFirst();
   }
+
+  public void clear() {
+    storage.clear();
+  }
 }
 

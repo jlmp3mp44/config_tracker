@@ -1,3 +1,6 @@
+Ось як можна доповнити твоє README, щоб додати **кореляційний ID** і **Postman колекцію** у професійний і зрозумілий вигляд:
+
+---
 
 # Config Tracker
 
@@ -9,8 +12,8 @@ Config Tracker is an application for logging and storing configuration changes, 
 
 The main purpose of the application is to maintain a configuration change log, providing the ability to:
 
-* Create configuration rules (`RuleType`)
-* Create and store configuration changes (`ConfigChange`)
+* Create configuration rules (RuleType)
+* Create and store configuration changes (ConfigChange)
 * View change history
 * Receive notifications for critical changes
 
@@ -29,6 +32,7 @@ logs/notification.log
 * **Repositories:** in-memory storage
 * **Notifications:** `NotificationService` for critical changes
 * **Exception Handling:** global handler `MyGlobalExceptionHandler`
+* **Request Tracing:** correlation ID is added for each request to trace logs across services
 
 ---
 
@@ -47,7 +51,7 @@ logs/notification.log
 
 **Endpoints:**
 
-* `POST` – create a new rule (e.g., `CREDIT_LIMIT` with type `INTEGER`)
+* `POST` – create a new rule (e.g., CREDIT_LIMIT with type INTEGER)
 * `GET` – get all rules
 * `GET /{id}` – get a rule by ID
 * `PUT /{id}` – update a rule
@@ -56,7 +60,7 @@ logs/notification.log
 **Validation:**
 
 * Spring Validation annotations (`@Valid`)
-* Custom enum for `valueType` (`INTEGER`, `STRING`, `BOOLEAN`)
+* Custom enum for `valueType` (INTEGER, STRING, BOOLEAN)
 * Additional validation logic in service (`validateValueType`)
 
 ---
@@ -72,11 +76,9 @@ logs/notification.log
 
 **Available filters:**
 
-```
-typeName  – rule name (e.g., CREDIT_LIMIT)
-from      – date after which to search (ISO 8601)
-to        – date before which to search (ISO 8601)
-```
+* `typeName` – rule name (e.g., CREDIT_LIMIT)
+* `from` – date after which to search (ISO 8601)
+* `to` – date before which to search (ISO 8601)
 
 **Example filtered request:**
 
@@ -90,6 +92,7 @@ GET /api/config-changes?typeName=CREDIT_LIMIT&from=2025-11-10T00:00:00&to=2025-1
 * Duplicate values (except `changedBy`) are ignored
 * Critical changes are logged to `logs/notification.log`
 * Input validation performed in the service based on `RuleType.valueType`
+* Correlation ID is included in logs for tracing requests
 
 ---
 
@@ -97,7 +100,7 @@ GET /api/config-changes?typeName=CREDIT_LIMIT&from=2025-11-10T00:00:00&to=2025-1
 
 **Global Exception Handler:** `MyGlobalExceptionHandler`
 
-Handles:
+**Handles:**
 
 * `APIException`
 * `ResourceNotFoundException`
@@ -112,16 +115,8 @@ Provides user-friendly error messages, for example when a value type does not ma
 
 ## Health Check and Metrics
 
-* Health check:
-
-  ```
-  GET /api/health
-  ```
-* Metrics (Actuator):
-
-  ```
-  GET /metrics
-  ```
+* Health check: `GET /api/health`
+* Metrics (Actuator): `GET /metrics`
 
 Unit and integration tests ensure service logic and endpoint correctness.
 
@@ -135,7 +130,7 @@ Unit and integration tests ensure service logic and endpoint correctness.
 POST /api/rule-types
 ```
 
-**Example body:**
+Example body:
 
 ```json
 {
@@ -144,15 +139,13 @@ POST /api/rule-types
 }
 ```
 
----
-
 ### 2. Create a Configuration for the Rule
 
 ```
 POST /api/config-changes
 ```
 
-**Example body:**
+Example body:
 
 ```json
 {
@@ -162,8 +155,6 @@ POST /api/config-changes
   "critical": false
 }
 ```
-
----
 
 ### 3. View Change History
 
@@ -180,3 +171,19 @@ logs/notification.log
 ```
 
 ---
+
+## Postman Collection
+
+A ready-to-use **Postman collection** is available in the project at:
+
+```
+postman/ConfigTracker.postman_collection.json
+```
+
+You can import it in Postman to easily test all endpoints, including filtering and creating configurations.
+
+---
+
+Якщо хочеш, я можу ще зробити **швидку секцію прикладу запитів з кореляційним ID**, щоб було видно, як його використовувати при тестуванні через Postman.
+
+Хочеш, щоб я це додала?

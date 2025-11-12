@@ -48,7 +48,6 @@ public class RuleTypeServiceImpl implements RuleTypeService {
     RuleType existing = ruleTypeRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("RuleType", "id", id));
 
-    // якщо змінюється ім'я — перевіряємо на дублікати
     if (!existing.getName().equalsIgnoreCase(updatedRuleType.getName())) {
       ruleTypeRepo.findByName(updatedRuleType.getName()).ifPresent(r -> {
         throw new APIException("Rule with name '" + updatedRuleType.getName() + "' already exists!");

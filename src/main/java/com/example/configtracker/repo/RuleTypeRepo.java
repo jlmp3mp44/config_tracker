@@ -2,45 +2,46 @@ package com.example.configtracker.repo;
 
 import com.example.configtracker.entities.RuleType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RuleTypeRepo {
 
-  private final List<RuleType> ruleTypes = new ArrayList<>();
-  private Long counter = 1L;
+  private final Map<Long, RuleType> storage = new HashMap<>();
 
   public Long generateId() {
-    return counter++;
+    return storage.keySet().stream()
+        .mapToLong(Long::longValue)
+        .max()
+        .orElse(0L) + 1;
   }
 
   public List<RuleType> findAll() {
-    return new ArrayList<>(ruleTypes);
+    return storage.values().stream().toList();
   }
 
   public Optional<RuleType> findById(Long id) {
-    return ruleTypes.stream().filter(r -> r.getId().equals(id)).findFirst();
+    return Optional.ofNullable(storage.get(id));
   }
 
   public RuleType save(RuleType ruleType) {
     if (ruleType.getId() == null) {
       ruleType.setId(generateId());
     }
-    ruleTypes.removeIf(r -> r.getId().equals(ruleType.getId())); // оновлення, якщо існує
-    ruleTypes.add(ruleType);
+    storage.put(ruleType.getId(), ruleType);
     return ruleType;
   }
 
   public void deleteById(Long id) {
-    ruleTypes.removeIf(r -> r.getId().equals(id));
+    storage.remove(id);
   }
 
   public Optional<RuleType> findByName(String name) {
-    return ruleTypes.stream()
-        .filter(r -> r.getName().equalsIgnoreCase(name))
-        .findFirst();
+    return storage.values().stream().filter(r -> r.getName().equalsIgnoreCase(name)).findFirst();
   }
 }
 

@@ -1,7 +1,6 @@
 package com.example.configtracker.unit;
 
 import com.example.configtracker.entities.RuleType;
-import com.example.configtracker.entities.ValueType;
 import com.example.configtracker.exception.APIException;
 import com.example.configtracker.exception.InvalidValueTypeException;
 import com.example.configtracker.exception.ResourceNotFoundException;

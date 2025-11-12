@@ -43,7 +43,6 @@ public class ConfigChangeController {
     return ResponseEntity.ok(service.getChangeById(id));
   }
 
-  // ✅ 4. DELETE (by ID)
   @DeleteMapping("/{id}")
   public ResponseEntity<ConfigChange> delete(@PathVariable Long id) {
     ConfigChange configChangeDeleted = service.delete(id);

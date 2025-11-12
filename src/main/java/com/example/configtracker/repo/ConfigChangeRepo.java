@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 public class ConfigChangeRepo {
 
   private final Map<Long, ConfigChange> storage = new HashMap<>();
-  private Long counter = 1L;
 
   public Long generateId() {
     return storage.keySet().stream()
@@ -40,6 +39,5 @@ public class ConfigChangeRepo {
   public void deleteById(Long id) {
     storage.remove(id);
   }
-
 
 }

@@ -5,7 +5,6 @@ public enum ValueType {
   BOOLEAN,
   STRING;
 
-  // зручний метод для перевірки
   public static boolean isValid(String value) {
     if (value == null) return false;
     for (ValueType vt : values()) {

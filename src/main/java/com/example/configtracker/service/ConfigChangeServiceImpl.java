@@ -43,18 +43,13 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
       throw new APIException("An identical configuration change already exists. Duplicate not allowed.");
     }
 
-    // Перевіряємо значення
     validateValueType(change, ruleType);
 
-    // Set timestamp and ID
     change.setChangedAt(LocalDateTime.now());
     change.setId(configChangeRepo.generateId()); // generateId() is a simple counter in repo
 
-    // Save the change
-
     configChangeRepo.save(change);
 
-    // Notify if it's critical
     if (change.isCritical()) {
       notificationService.notify("Critical configuration change detected: " + change);
     }
@@ -62,9 +57,6 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
     return change;
   }
 
-  /**
-   * Get all changes with optional filters.
-   */
   @Override
   public List<ConfigChangeListDTO> listChanges(Optional<String> typeName, Optional<LocalDateTime> from,
       Optional<LocalDateTime> to) {
@@ -82,10 +74,6 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
     return toHistoryDTO(changes);
   }
 
-
-  /**
-   * Get a change by its ID.
-   */
   @Override
   public ConfigChange getChangeById(Long id) {
     return configChangeRepo.findById(id)
@@ -129,8 +117,6 @@ public class ConfigChangeServiceImpl implements ConfigChangeService {
               "Value for rule " + ruleType.getName() + " must contain at least one English letter");
         }
         break;
-
-
       default:
         throw new IllegalArgumentException(
             "Unknown value type for rule " + ruleType.getName());

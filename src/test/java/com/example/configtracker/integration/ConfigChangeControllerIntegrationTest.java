@@ -5,7 +5,6 @@ import com.example.configtracker.entities.RuleType;
 import com.example.configtracker.repo.RuleTypeRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -180,8 +180,3 @@ postman/ConfigTracker.postman_collection.json
 
 You can import it in Postman to easily test all endpoints, including filtering and creating configurations.
 
----
-
-Якщо хочеш, я можу ще зробити **швидку секцію прикладу запитів з кореляційним ID**, щоб було видно, як його використовувати при тестуванні через Postman.
-
-Хочеш, щоб я це додала?
